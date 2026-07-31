@@ -1,0 +1,21 @@
+---
+description: Project context and working conventions for meal-planner-web
+alwaysApply: true
+---
+
+# meal-planner-web (React PWA)
+
+Shared `docs/` (ARCHITECTURE.md, ROADMAP.md, STATUS.md) live in the `meal-planner-api` repo, not here. Read them there before starting work — `../meal-planner-api/docs/` if checked out as a sibling, otherwise pull current versions from that repo on GitHub.
+
+## Before doing anything
+Read, from `meal-planner-api`'s docs: `STATUS.md` (actual current state — wins on conflicts), `ARCHITECTURE.md` (stack, data model, system design, §5 for the type-generation workflow this repo depends on), `ROADMAP.md` (the phase plan).
+
+## Conventions
+- Terse, self-documenting code. No gold-plating, no speculative abstraction for features not yet in the current phase.
+- Stage changes; don't commit unless explicitly told to.
+- Never hand-edit `src/types/api.d.ts` or `src/types/api.zod.ts` — they're generated from the API repo's OpenAPI spec via the `generate:types` script. Regenerate, don't patch.
+- Validate API responses through the generated Zod schemas at the network boundary rather than trusting TS types alone.
+- Deviations from ARCHITECTURE.md or ROADMAP.md should be noted for the user to carry into `meal-planner-api`'s `docs/STATUS.md` — this repo doesn't hold its own status log by design, to avoid two conflicting sources of truth.
+
+## End of session
+Flag in chat anything completed, in progress, or decided, and whether a type regen is needed and wasn't run.
