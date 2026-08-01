@@ -1,25 +1,3 @@
-export function RecipesPlaceholder() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1>Recipes</h1>
-      </div>
-      <p className="placeholder-page">Recipe screens coming next.</p>
-    </div>
-  )
-}
-
-export function ShopPlaceholder() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1>Shop</h1>
-      </div>
-      <p className="placeholder-page">Shopping list coming next.</p>
-    </div>
-  )
-}
-
 export function PantryPlaceholder() {
   return (
     <div>
@@ -27,6 +5,17 @@ export function PantryPlaceholder() {
         <h1>Pantry</h1>
       </div>
       <p className="placeholder-page">Pantry coming next.</p>
+    </div>
+  )
+}
+
+export function InStorePlaceholder() {
+  return (
+    <div>
+      <div className="page-header">
+        <h1>In-store</h1>
+      </div>
+      <p className="placeholder-page">In-store checklist coming next.</p>
     </div>
   )
 }
