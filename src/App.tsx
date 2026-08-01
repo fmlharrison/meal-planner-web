@@ -2,12 +2,12 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { RequireAuth } from './components/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
-import { InStorePlaceholder } from './pages/Placeholders'
 import { PantryPage } from './pages/pantry/PantryPage'
 import { PlanPage } from './pages/plan/PlanPage'
 import { RecipeDetailPage } from './pages/recipes/RecipeDetailPage'
 import { RecipeFormPage } from './pages/recipes/RecipeFormPage'
 import { RecipesPage } from './pages/recipes/RecipesPage'
+import { InStorePage } from './pages/shop/InStorePage'
 import { ShopPage } from './pages/shop/ShopPage'
 import './App.css'
 
@@ -29,7 +29,7 @@ export default function App() {
         <Route path="/recipes/:id/edit" element={<RecipeFormPage />} />
         <Route path="/plan" element={<PlanPage />} />
         <Route path="/shop" element={<ShopPage />} />
-        <Route path="/shop/store" element={<InStorePlaceholder />} />
+        <Route path="/shop/store" element={<InStorePage />} />
         <Route path="/pantry" element={<PantryPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/plan" replace />} />
