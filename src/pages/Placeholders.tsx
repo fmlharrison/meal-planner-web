@@ -1,14 +1,3 @@
-export function PantryPlaceholder() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1>Pantry</h1>
-      </div>
-      <p className="placeholder-page">Pantry coming next.</p>
-    </div>
-  )
-}
-
 export function InStorePlaceholder() {
   return (
     <div>

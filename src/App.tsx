@@ -2,7 +2,8 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AppShell } from './components/AppShell'
 import { RequireAuth } from './components/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
-import { InStorePlaceholder, PantryPlaceholder } from './pages/Placeholders'
+import { InStorePlaceholder } from './pages/Placeholders'
+import { PantryPage } from './pages/pantry/PantryPage'
 import { PlanPage } from './pages/plan/PlanPage'
 import { RecipeDetailPage } from './pages/recipes/RecipeDetailPage'
 import { RecipeFormPage } from './pages/recipes/RecipeFormPage'
@@ -29,7 +30,7 @@ export default function App() {
         <Route path="/plan" element={<PlanPage />} />
         <Route path="/shop" element={<ShopPage />} />
         <Route path="/shop/store" element={<InStorePlaceholder />} />
-        <Route path="/pantry" element={<PantryPlaceholder />} />
+        <Route path="/pantry" element={<PantryPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/plan" replace />} />
     </Routes>
