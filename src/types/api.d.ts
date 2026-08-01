@@ -4,6 +4,517 @@
  */
 
 export interface paths {
+    "/meal_plans/{meal_plan_id}/meal_plan_entries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                meal_plan_id: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Create meal plan entry */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    meal_plan_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        meal_plan_entry: {
+                            recipe_id: number;
+                            day_of_week: number;
+                            /** @enum {string} */
+                            meal_type: "breakfast" | "lunch" | "dinner";
+                            servings_multiplier?: number;
+                            batch_source_entry_id?: number | null;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description entry created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlanEntry"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description invalid meal type */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/meal_plan_entries/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete meal plan entry */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description entry deleted */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** Update meal plan entry */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        meal_plan_entry: {
+                            recipe_id?: number;
+                            day_of_week?: number;
+                            /** @enum {string} */
+                            meal_type?: "breakfast" | "lunch" | "dinner";
+                            servings_multiplier?: number;
+                            batch_source_entry_id?: number | null;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description entry updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlanEntry"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/meal_plans": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List meal plans */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description meal plans listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlan"][];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        /** Create meal plan */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        meal_plan: {
+                            /** Format: date */
+                            week_start_date: string;
+                            /** @enum {string} */
+                            status?: "draft" | "active" | "archived";
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description meal plan created */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlan"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description not a Monday */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/meal_plans/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        /** Show meal plan */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description meal plan found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlan"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update meal plan status */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        meal_plan: {
+                            /** @enum {string} */
+                            status: "draft" | "active" | "archived";
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description meal plan updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["MealPlan"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description invalid status */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/pantry_items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List pantry items */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description pantry items listed */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PantryItem"][];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        /** Create pantry item */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path?: never;
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        pantry_item: {
+                            ingredient_id?: number;
+                            name?: string;
+                            /** @enum {string} */
+                            status?: "have" | "running_low" | "out";
+                            is_staple?: boolean;
+                            /** Format: date-time */
+                            last_confirmed_at?: string | null;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description created by ingredient_id */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PantryItem"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description duplicate ingredient */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/pantry_items/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** Delete pantry item */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description pantry item deleted */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** Update pantry item */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        pantry_item: {
+                            /** @enum {string} */
+                            status?: "have" | "running_low" | "out";
+                            is_staple?: boolean;
+                            /** Format: date-time */
+                            last_confirmed_at?: string | null;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description pantry item updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["PantryItem"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        trace?: never;
+    };
     "/recipes": {
         parameters: {
             query?: never;
@@ -59,6 +570,13 @@ export interface paths {
                             servings?: number;
                             image_url?: string | null;
                             tags?: string[];
+                            recipe_ingredients_attributes?: {
+                                name: string;
+                                quantity: number;
+                                unit: string;
+                                notes?: string | null;
+                                is_optional?: boolean;
+                            }[];
                         };
                     };
                 };
@@ -95,6 +613,349 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/recipes/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        /** Show recipe */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description recipe found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Recipe"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description not found */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        post?: never;
+        /** Delete recipe */
+        delete: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description recipe deleted */
+                204: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description recipe in use */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        options?: never;
+        head?: never;
+        /** Update recipe */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        recipe: {
+                            title?: string;
+                            instructions?: string | null;
+                            servings?: number;
+                            tags?: string[];
+                            recipe_ingredients_attributes?: {
+                                id?: number;
+                                name?: string;
+                                quantity?: number;
+                                unit?: string;
+                                notes?: string | null;
+                                is_optional?: boolean;
+                                _destroy?: boolean;
+                            }[];
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description recipe updated */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["Recipe"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/shopping_list_items/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** Update shopping list item */
+        patch: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        shopping_list_item: {
+                            is_checked?: boolean;
+                            excluded_reason?: string | null;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description sets and clears excluded_reason */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ShoppingListItem"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        trace?: never;
+    };
+    "/shopping_lists/{shopping_list_id}/shopping_list_items": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                shopping_list_id: number;
+            };
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /** Add manual shopping list item */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    shopping_list_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: {
+                content: {
+                    "application/json": {
+                        shopping_list_item: {
+                            ingredient_id?: number;
+                            name?: string;
+                            quantity: number;
+                            unit: string;
+                            excluded_reason?: string | null;
+                            is_checked?: boolean;
+                        };
+                    };
+                };
+            };
+            responses: {
+                /** @description manual item added by ingredient_id */
+                201: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ShoppingListItem"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description missing quantity */
+                422: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/meal_plans/{meal_plan_id}/shopping_list": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                meal_plan_id: number;
+            };
+            cookie?: never;
+        };
+        /** Show shopping list */
+        get: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    meal_plan_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description shopping list found */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ShoppingList"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+                /** @description not generated yet */
+                404: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        put?: never;
+        /** Generate or regenerate shopping list */
+        post: {
+            parameters: {
+                query?: never;
+                header?: never;
+                path: {
+                    meal_plan_id: number;
+                };
+                cookie?: never;
+            };
+            requestBody?: never;
+            responses: {
+                /** @description skips batch leftover entries */
+                200: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content: {
+                        "application/json": components["schemas"]["ShoppingList"];
+                    };
+                };
+                /** @description unauthorized */
+                401: {
+                    headers: {
+                        [name: string]: unknown;
+                    };
+                    content?: never;
+                };
+            };
+        };
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -109,6 +970,96 @@ export interface components {
             servings: number;
             image_url?: string | null;
             tags: string[];
+            recipe_ingredients?: components["schemas"]["RecipeIngredient"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        RecipeIngredient: {
+            id: number;
+            ingredient_id: number;
+            quantity: string;
+            unit: string;
+            notes?: string | null;
+            is_optional: boolean;
+            ingredient?: {
+                id: number;
+                name: string;
+            };
+        };
+        MealPlan: {
+            id: number;
+            user_id: number;
+            /** Format: date */
+            week_start_date: string;
+            /** @enum {string} */
+            status: "draft" | "active" | "archived";
+            meal_plan_entries?: components["schemas"]["MealPlanEntry"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        MealPlanEntry: {
+            id: number;
+            meal_plan_id?: number;
+            recipe_id: number;
+            day_of_week: number;
+            /** @enum {string} */
+            meal_type: "breakfast" | "lunch" | "dinner";
+            servings_multiplier: string;
+            batch_source_entry_id?: number | null;
+            recipe?: {
+                id: number;
+                title: string;
+            };
+            /** Format: date-time */
+            created_at?: string;
+            /** Format: date-time */
+            updated_at?: string;
+        };
+        ShoppingList: {
+            id: number;
+            user_id: number;
+            meal_plan_id: number;
+            /** Format: date */
+            week_start_date: string;
+            /** @enum {string} */
+            status: "draft" | "finalized" | "ordered";
+            shopping_list_items?: components["schemas"]["ShoppingListItem"][];
+            /** Format: date-time */
+            created_at: string;
+            /** Format: date-time */
+            updated_at: string;
+        };
+        ShoppingListItem: {
+            id: number;
+            ingredient_id: number;
+            quantity: string;
+            unit: string;
+            /** @enum {string} */
+            source: "recipe" | "manual" | "staple_replenish";
+            is_checked: boolean;
+            excluded_reason?: string | null;
+            ingredient?: {
+                id: number;
+                name: string;
+            };
+        };
+        PantryItem: {
+            id: number;
+            user_id: number;
+            ingredient_id: number;
+            is_staple: boolean;
+            /** @enum {string} */
+            status: "have" | "running_low" | "out";
+            /** Format: date-time */
+            last_confirmed_at?: string | null;
+            ingredient?: {
+                id: number;
+                name: string;
+            };
             /** Format: date-time */
             created_at: string;
             /** Format: date-time */
