@@ -1,30 +1,33 @@
-import { Link, Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import { AppShell } from './components/AppShell'
+import { RequireAuth } from './components/RequireAuth'
+import { LoginPage } from './pages/LoginPage'
+import {
+  PantryPlaceholder,
+  PlanPlaceholder,
+  RecipesPlaceholder,
+  ShopPlaceholder,
+} from './pages/Placeholders'
 import './App.css'
 
-function PlanPage() {
-  return <h1>Plan</h1>
-}
-
-function RecipesPage() {
-  return <h1>Recipes</h1>
-}
-
-function App() {
+export default function App() {
   return (
-    <div className="app">
-      <nav>
-        <Link to="/plan">Plan</Link>
-        <Link to="/recipes">Recipes</Link>
-      </nav>
-      <main>
-        <Routes>
-          <Route path="/" element={<Navigate to="/plan" replace />} />
-          <Route path="/plan" element={<PlanPage />} />
-          <Route path="/recipes" element={<RecipesPage />} />
-        </Routes>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+      <Route
+        element={
+          <RequireAuth>
+            <AppShell />
+          </RequireAuth>
+        }
+      >
+        <Route path="/" element={<Navigate to="/plan" replace />} />
+        <Route path="/recipes" element={<RecipesPlaceholder />} />
+        <Route path="/plan" element={<PlanPlaceholder />} />
+        <Route path="/shop" element={<ShopPlaceholder />} />
+        <Route path="/pantry" element={<PantryPlaceholder />} />
+      </Route>
+      <Route path="*" element={<Navigate to="/plan" replace />} />
+    </Routes>
   )
 }
-
-export default App

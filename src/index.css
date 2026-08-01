@@ -1,9 +1,25 @@
 :root {
-  font-family: system-ui, sans-serif;
-  line-height: 1.5;
+  --bg: #eceae5;
+  --card: #fbfaf9;
+  --ink: #141311;
+  --ink-muted: #5c5a55;
+  --line: #d8d5ce;
+  --ok: oklch(0.52 0.1 150);
+  --ok-bg: oklch(0.94 0.05 150);
+  --amber: oklch(0.55 0.14 45);
+  --amber-bg: oklch(0.95 0.04 45);
+  --radius: 10px;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --tab-h: 56px;
+  --touch: 44px;
+  --touch-store: 64px;
+
+  font-family: var(--font-sans);
+  line-height: 1.45;
   font-weight: 400;
-  color: #1a1a1a;
-  background-color: #fafafa;
+  color: var(--ink);
+  background-color: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -18,9 +34,47 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0;
 }
 
 h1 {
   font-size: 1.75rem;
-  line-height: 1.2;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+.muted {
+  color: var(--ink-muted);
 }
