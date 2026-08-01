@@ -396,3 +396,119 @@
     grid-column: span 1;
   }
 }
+
+.plan-week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.plan-week-nav__label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.plan-grid {
+  display: grid;
+  grid-template-columns: 2.4rem repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+.plan-grid__corner {
+  min-height: 1.5rem;
+}
+
+.plan-grid__head,
+.plan-grid__day {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan-grid__day {
+  justify-content: flex-start;
+}
+
+.plan-slot {
+  min-height: 3.6rem;
+  padding: 0.35rem;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.15rem;
+  text-align: left;
+}
+
+.plan-slot--empty {
+  border-style: dashed;
+  align-items: center;
+  color: var(--ink-muted);
+}
+
+.plan-slot__title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.plan-slot__meta {
+  font-size: 0.65rem;
+  color: var(--ink-muted);
+}
+
+.plan-slot__plus {
+  font-size: 1.1rem;
+}
+
+.plan-footer {
+  position: sticky;
+  bottom: calc(var(--tab-h) + 0.5rem);
+  margin-top: 1rem;
+  padding: 0.85rem;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.assign-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.assign-list__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.assign-list__row--hi {
+  background: var(--ok-bg);
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  border-radius: 8px;
+}

@@ -4,9 +4,9 @@ import { RequireAuth } from './components/RequireAuth'
 import { LoginPage } from './pages/LoginPage'
 import {
   PantryPlaceholder,
-  PlanPlaceholder,
   ShopPlaceholder,
 } from './pages/Placeholders'
+import { PlanPage } from './pages/plan/PlanPage'
 import { RecipeDetailPage } from './pages/recipes/RecipeDetailPage'
 import { RecipeFormPage } from './pages/recipes/RecipeFormPage'
 import { RecipesPage } from './pages/recipes/RecipesPage'
@@ -28,7 +28,7 @@ export default function App() {
         <Route path="/recipes/new" element={<RecipeFormPage />} />
         <Route path="/recipes/:id" element={<RecipeDetailPage />} />
         <Route path="/recipes/:id/edit" element={<RecipeFormPage />} />
-        <Route path="/plan" element={<PlanPlaceholder />} />
+        <Route path="/plan" element={<PlanPage />} />
         <Route path="/shop" element={<ShopPlaceholder />} />
         <Route path="/pantry" element={<PantryPlaceholder />} />
       </Route>

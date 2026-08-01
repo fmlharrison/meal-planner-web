@@ -9,17 +9,6 @@ export function RecipesPlaceholder() {
   )
 }
 
-export function PlanPlaceholder() {
-  return (
-    <div>
-      <div className="page-header">
-        <h1>Plan</h1>
-      </div>
-      <p className="placeholder-page">Plan builder coming next.</p>
-    </div>
-  )
-}
-
 export function ShopPlaceholder() {
   return (
     <div>
