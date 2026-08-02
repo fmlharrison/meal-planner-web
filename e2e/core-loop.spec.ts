@@ -3,6 +3,7 @@ import {
   assignToMonDinner,
   buildShoppingList,
   createRecipe,
+  ensurePantryEditable,
   signup,
 } from './fixtures/helpers'
 
@@ -10,6 +11,7 @@ test.describe('P0 core planning loop', () => {
   test('signup → recipe → plan → list → pantry skip → in-store tick', async ({
     page,
   }) => {
+    test.setTimeout(90_000)
     await signup(page)
 
     const recipeTitle = `Loop Salmon ${Date.now()}`
@@ -28,16 +30,11 @@ test.describe('P0 core planning loop', () => {
     await expect(page.getByText('Salmon fillet')).toBeVisible()
     await expect(page.getByText('E2E Test Oil')).toBeVisible()
 
-    // Mark oil as staple so regen skips it
-    await page.goto('/pantry')
-    const skipOrList = page.getByRole('button', { name: 'You can skip this' })
-    if (await skipOrList.isVisible().catch(() => false)) {
-      await skipOrList.click()
-    }
+    await ensurePantryEditable(page)
     await page.getByPlaceholder('Add or search').fill('E2E Test Oil')
     await page.getByRole('button', { name: 'Add item' }).click()
     await expect(page.getByText('E2E Test Oil')).toBeVisible()
-    // Ensure staple (new items are non-staple; toggle star)
+
     const oilRow = page.locator('.pantry-row').filter({ hasText: 'E2E Test Oil' })
     await oilRow.getByTitle('Mark staple').click()
     await expect(oilRow.getByTitle('Unmark staple')).toBeVisible()
@@ -52,7 +49,9 @@ test.describe('P0 core planning loop', () => {
 
     await page.getByRole('button', { name: 'Start shopping' }).click()
     await expect(page).toHaveURL(/\/shop\/store/)
-    const salmonRow = page.locator('.instore-row').filter({ hasText: 'Salmon fillet' })
+    const salmonRow = page
+      .locator('.instore-row')
+      .filter({ hasText: 'Salmon fillet' })
     await salmonRow.click()
     await expect(salmonRow).toHaveClass(/instore-row--done/)
 

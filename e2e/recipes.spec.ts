@@ -8,7 +8,9 @@ test.describe('P1 recipes', () => {
 
   test('empty state CTA opens new recipe form', async ({ page }) => {
     await page.goto('/recipes')
-    await expect(page.getByRole('heading', { name: 'Nothing to plan with yet' })).toBeVisible()
+    await expect(
+      page.getByRole('heading', { name: 'Nothing to plan with yet' }),
+    ).toBeVisible()
     await page.getByRole('button', { name: 'Add a recipe' }).click()
     await expect(page).toHaveURL(/\/recipes\/new/)
   })
@@ -17,6 +19,7 @@ test.describe('P1 recipes', () => {
     page,
   }) => {
     const title = `Recipe CRUD ${Date.now()}`
+    // Default form servings = 2; 100g × (3/2) = 150 after one + click
     await createRecipe(page, {
       title,
       tags: 'dinner',
@@ -26,12 +29,12 @@ test.describe('P1 recipes', () => {
       ],
     })
 
-    // Servings preview scales without leaving detail
     await page.getByRole('button', { name: 'More servings' }).click()
     await expect(page.getByText('Preview only')).toBeVisible()
-    await expect(page.locator('.ingredient-list__row').first()).toContainText('200')
+    await expect(
+      page.locator('.ingredient-list__row').first().locator('.mono'),
+    ).toHaveText(/150/)
 
-    // Edit title
     await page.getByRole('link', { name: 'Edit' }).click()
     await expect(page).toHaveURL(/\/edit/)
     const edited = `${title} Edited`
@@ -39,20 +42,16 @@ test.describe('P1 recipes', () => {
     await page.getByRole('button', { name: 'Save changes' }).click()
     await expect(page.getByRole('heading', { name: edited })).toBeVisible()
 
-    // Validation: unit required on new recipe
     await page.goto('/recipes/new')
     await page.getByPlaceholder('e.g. Miso butter salmon').fill('No Unit Dish')
     const row = page.locator('.ingredient-editor__row').first()
     await row.locator('input').nth(0).fill('1')
-    await row.locator('input').nth(1).fill('') // missing unit
+    await row.locator('input').nth(1).fill('')
     await row.locator('input').nth(2).fill('Onion')
     await page.getByRole('button', { name: 'Save recipe' }).click()
-    await expect(
-      page.getByText(/needs a unit/i),
-    ).toBeVisible()
+    await expect(page.getByText(/needs a unit/i)).toBeVisible()
     await expect(page).toHaveURL(/\/recipes\/new/)
 
-    // Delete
     await page.goto('/recipes')
     await page.getByRole('link', { name: edited }).click()
     page.once('dialog', (d) => d.accept())

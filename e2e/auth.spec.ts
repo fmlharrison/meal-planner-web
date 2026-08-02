@@ -10,7 +10,10 @@ import {
 test.describe('P1 auth', () => {
   test('signup lands on plan', async ({ page }) => {
     await signup(page)
-    await expect(page.getByRole('heading', { name: /–/ })).toBeVisible()
+    await expect(page).toHaveURL(/\/plan/)
+    await expect(
+      page.getByRole('grid', { name: 'Weekly meal plan' }),
+    ).toBeVisible()
   })
 
   test('login with existing user', async ({ page }) => {
@@ -18,6 +21,9 @@ test.describe('P1 auth', () => {
     await signup(page, email, DEFAULT_PASSWORD)
     await login(page, email, DEFAULT_PASSWORD)
     await expect(page).toHaveURL(/\/plan/)
+    await expect(
+      page.getByRole('grid', { name: 'Weekly meal plan' }),
+    ).toBeVisible()
   })
 
   test('unauthenticated /recipes redirects to /login', async ({ page }) => {

@@ -3,6 +3,7 @@ import {
   assignToMonDinner,
   buildShoppingList,
   createRecipe,
+  ensurePantryEditable,
   signup,
 } from './fixtures/helpers'
 
@@ -13,8 +14,7 @@ test.describe('P1 in-store', () => {
     await signup(page)
 
     // Skip pantry onboard so empty pantry stays empty for the assertion
-    await page.goto('/pantry')
-    await page.getByRole('button', { name: 'You can skip this' }).click()
+    await ensurePantryEditable(page)
 
     const title = `InStore ${Date.now()}`
     await createRecipe(page, {

@@ -35,10 +35,10 @@ export async function signup(
 export async function login(page: Page, email: string, password: string) {
   await clearSession(page)
   await page.goto('/login')
-  await page.getByRole('button', { name: 'Log in' }).click()
+  // Default mode is login — fill and submit the form (avoid chip vs submit clash)
   await page.locator('input[type="email"]').fill(email)
-  await page.locator('input[type="password"]').fill(password)
-  await page.getByRole('button', { name: 'Log in', exact: true }).click()
+  await page.locator('form input[type="password"]').fill(password)
+  await page.locator('form').getByRole('button', { name: 'Log in' }).click()
   await expect(page).toHaveURL(/\/plan/)
 }
 
@@ -64,7 +64,17 @@ export async function createRecipe(
     await page.getByPlaceholder('dinner, quick').fill(opts.tags)
   }
 
-  // Ensure enough ingredient rows
+  if (opts.servings != null) {
+    // Form defaults to 2 — adjust with stepper (+ / −)
+    const delta = opts.servings - 2
+    const stepper = page.locator('.stepper').first()
+    for (let i = 0; i < Math.abs(delta); i++) {
+      await stepper
+        .getByRole('button', { name: delta > 0 ? '+' : '−' })
+        .click()
+    }
+  }
+
   const addBtn = page.getByRole('button', { name: '+ Add ingredient' })
   for (let i = 1; i < opts.ingredients.length; i++) {
     await addBtn.click()
@@ -85,13 +95,23 @@ export async function createRecipe(
   await expect(page.getByRole('heading', { name: opts.title })).toBeVisible()
 }
 
+/** Dismiss first-run staple picker if shown, leave pantry ready for add/search. */
+export async function ensurePantryEditable(page: Page) {
+  await page.goto('/pantry')
+  const skip = page.getByRole('button', { name: 'You can skip this' })
+  const search = page.getByPlaceholder('Add or search')
+  await expect(skip.or(search)).toBeVisible({ timeout: 15_000 })
+  if (await skip.isVisible()) {
+    await skip.click()
+  }
+  await expect(search).toBeVisible()
+}
+
 /** Open Mon dinner slot (day 0, meal dinner = 3rd column in day row). */
 export async function assignToMonDinner(page: Page, recipeTitle: string) {
   await page.goto('/plan')
   await expect(page.getByRole('grid', { name: 'Weekly meal plan' })).toBeVisible()
 
-  // Grid: corner + 3 heads, then for each day: day label + 3 slots.
-  // Mon dinner is the 3rd plan-slot in the first day row → overall 3rd .plan-slot
   const monDinner = page.locator('.plan-slot').nth(2)
   await monDinner.click()
 
@@ -102,7 +122,9 @@ export async function assignToMonDinner(page: Page, recipeTitle: string) {
   const row = sheet.locator('.assign-list__row').filter({ hasText: recipeTitle })
   await row.getByRole('button', { name: 'Add' }).click()
   await expect(sheet).toBeHidden({ timeout: 15_000 })
-  await expect(page.locator('.plan-slot--filled').filter({ hasText: recipeTitle })).toBeVisible()
+  await expect(
+    page.locator('.plan-slot--filled').filter({ hasText: recipeTitle }),
+  ).toBeVisible()
 }
 
 export async function buildShoppingList(page: Page) {
